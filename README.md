@@ -96,7 +96,7 @@ mcp/      预留给未来的 MCP servers、配置和示例
 
 `skills/powershell-safe-invocation` 的整合来源：
 
-- 基础 skill：[Misaka-Mikoto-Tech/agent-skills](https://github.com/Misaka-Mikoto-Tech/agent-skills) 中的 `skills/powershell-safe-invocation`，保留其安全调用规则和 `reference.md`。
+- 基础 skill：[Misaka-Mikoto-Tech/agent-skills](https://github.com/Misaka-Mikoto-Tech/agent-skills) 中的 `skills/powershell-safe-invocation`，保留其安全调用规则，并将详细说明整理为 `references/safe-invocation.md`。
 - Windows 编码守卫与诊断：[chianwu-hash/windows-powershell-encoding-skill](https://github.com/chianwu-hash/windows-powershell-encoding-skill)，其 guardrails、教师提示词和两个 PowerShell 脚本按本仓库的单一入口结构迁入。
 
 encoding 来源仓库未声明许可证字段；本仓库不把该来源单独标注为 MIT。其内容按用户请求整合，并在此保留来源归属。本仓库自身的 MIT 许可证见 [LICENSE](LICENSE)。

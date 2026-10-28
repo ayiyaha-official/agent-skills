@@ -4,7 +4,7 @@ This reference is for maintainers. Normal skill use does not require reading it.
 
 ## Invariants
 
-- Preserve the safe invocation rules in `SKILL.md` and `reference.md`. Encoding changes must not weaken native argument boundaries, path validation, or process-startup guidance.
+- Preserve the safe invocation rules in `SKILL.md` and `references/safe-invocation.md`. Encoding changes must not weaken native argument boundaries, path validation, or process-startup guidance.
 - Keep PowerShell 7.6.1+ scoped to encoding diagnostics and CJK workflows; do not turn it into a minimum version for every PowerShell 7 task.
 - Keep PowerShell source files ASCII-only as this repository's portability policy, not as a PowerShell 7 runtime requirement.
 - Treat terminal-rendered non-ASCII text as untrusted and verify important content through bytes, structured parsing, rendering, or a reliable diff.

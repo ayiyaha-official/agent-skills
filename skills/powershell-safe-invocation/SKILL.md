@@ -224,7 +224,7 @@ Choose the simplest safe option:
 6. `cmd.exe /c` only when cmd semantics are required.
 7. `Invoke-Expression` only as a tightly controlled last resort.
 
-For uncommon invocation cases and complete examples, read `reference.md`. For encoding diagnosis and trustworthy verification methods, read `references/windows-encoding.md`.
+For uncommon invocation cases and complete examples, read `references/safe-invocation.md`. For encoding diagnosis and trustworthy verification methods, read `references/windows-encoding.md`.
 
 ## Maintaining This Skill
 
