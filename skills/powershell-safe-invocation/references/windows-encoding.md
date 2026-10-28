@@ -49,7 +49,7 @@ Use the result this way:
 - Git Bash: often UTF-8-friendly, but calling Windows-native tools can cross back into Windows code page behavior.
 - WSL: usually the cleanest UTF-8 environment, but invoking Windows executables or moving text across the WSL/Windows boundary reintroduces Windows encoding risk.
 
-If the user is not sure which shell they are using, ask them to run the diagnostic script:
+If the user is not sure which shell they are using, ask them to run the diagnostic script from this skill directory:
 
 ```powershell
 pwsh -NoProfile -File .\scripts\diagnose-powershell-encoding.ps1
@@ -159,19 +159,19 @@ Stop and re-check before writing or committing when any of these appear:
 
 ## Portable Check
 
-This skill includes `scripts/diagnose-powershell-encoding.ps1`. Run it to inspect the active PowerShell version and console encodings:
+This skill includes `scripts/diagnose-powershell-encoding.ps1`. Run the following command from this skill directory to inspect the active PowerShell version and console encodings:
 
 ```powershell
 pwsh -NoProfile -File .\scripts\diagnose-powershell-encoding.ps1
 ```
 
-This skill also includes `scripts/assert-no-nonascii-ps1.ps1`. Run it from this repo root to enforce this repo's ASCII-only PowerShell source policy; use it in another repo only if that repo adopts the policy:
+This skill also includes `scripts/assert-no-nonascii-ps1.ps1`. Run it from this skill directory to enforce this repository's ASCII-only PowerShell source policy; use it in another repository only if that repository adopts the policy:
 
 ```powershell
 pwsh -NoProfile -File .\scripts\assert-no-nonascii-ps1.ps1
 ```
 
-Run it with explicit roots or extensions from an active PowerShell session:
+Run it with explicit roots or extensions from an active PowerShell session started in this skill directory:
 
 ```powershell
 & .\scripts\assert-no-nonascii-ps1.ps1 -Path .\tools, .\scripts
