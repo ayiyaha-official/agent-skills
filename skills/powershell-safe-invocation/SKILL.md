@@ -225,3 +225,7 @@ Choose the simplest safe option:
 7. `Invoke-Expression` only as a tightly controlled last resort.
 
 For uncommon invocation cases and complete examples, read `reference.md`. For encoding diagnosis and trustworthy verification methods, read `references/windows-encoding.md`.
+
+## Maintaining This Skill
+
+For maintainer invariants and the validation checklist, read `references/maintenance.md`. Ordinary skill use does not require this reference.
