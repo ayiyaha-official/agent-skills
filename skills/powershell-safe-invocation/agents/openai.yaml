@@ -1,0 +1,7 @@
+interface:
+  display_name: "PowerShell Safe Invocation"
+  short_description: "Safe Windows shell calls with UTF-8/CJK safeguards"
+  default_prompt: "Use $powershell-safe-invocation to run this Windows PowerShell workflow safely, preserve exact native arguments, and verify UTF-8/CJK content without trusting terminal rendering."
+
+policy:
+  allow_implicit_invocation: true

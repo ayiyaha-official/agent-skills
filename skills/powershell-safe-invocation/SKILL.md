@@ -1,6 +1,6 @@
 ---
 name: powershell-safe-invocation
-description: Use when writing or running PowerShell on Windows, especially native programs, quoted paths, escaping, pwsh, Start-Process, file operations, or shell troubleshooting.
+description: Use when writing or running PowerShell on Windows, especially non-interactive execution, native programs, quoting, escaping, process startup, file operations, UTF-8/CJK text, mojibake diagnosis, or verifying non-ASCII file writes.
 ---
 
 # PowerShell Safe Invocation
@@ -20,6 +20,20 @@ Do not assume installing PowerShell 7 makes `powershell.exe` use PowerShell 7:
 
 - `pwsh.exe` = PowerShell 7
 - `powershell.exe` = Windows PowerShell 5.1
+
+## Runtime And Encoding Boundaries
+
+Identify the runtime before diagnosing shell or text behavior: PowerShell 7 MSI, PowerShell 7 MSIX/Store, Windows PowerShell 5.1, Git Bash, or WSL. Check `$PSVersionTable.PSVersion`, `$PSHOME`, `(Get-Command pwsh).Source`, `[Console]::InputEncoding`, `[Console]::OutputEncoding`, and `$OutputEncoding` when they affect the task.
+
+PowerShell 7.6.1 or newer is the recommended runtime for this skill's encoding diagnostics and CJK workflows. It is not a requirement for every PowerShell 7 scenario; use the active PowerShell version and its documented behavior when the task is unrelated to encoding.
+
+- Treat non-ASCII terminal output as a rendering layer, not as the final source of truth.
+- Read and write non-ASCII text with explicit UTF-8 when the target format permits it.
+- Verify important non-ASCII content through file bytes, structured parsing, browser rendering, screenshots, or a reliable diff.
+- If output shows `???`, replacement characters, or mojibake, inspect the underlying bytes before writing, committing, or publishing. Never propagate terminal-corrupted text into files or external systems.
+- Keep this repository's PowerShell source files ASCII-only as a conservative portability policy. PowerShell 7 itself can run UTF-8 scripts containing CJK text; other repositories should follow their own verified encoding policy.
+
+For runtime-specific guardrails, diagnosis, and adaptation guidance, read `references/windows-encoding.md`. For a learner-facing copy-paste prompt, read `references/teacher-ai-prompt.md`.
 
 ## Native Programs
 
@@ -120,12 +134,23 @@ If the command has to cross multiple interpreters or wrappers, stop and write a 
 
 ## Encoding
 
-PowerShell 7 defaults to UTF-8 without BOM for text output; Windows PowerShell 5.1 defaults vary by cmdlet.
+PowerShell 7 usually writes and redirects text as UTF-8; Windows PowerShell 5.1 defaults vary by cmdlet and must not be assumed UTF-8.
 
 - For a new text file consumed by another tool, specify its required encoding explicitly (usually `utf8`).
 - Before changing an existing text file, identify and preserve its existing encoding. Do not silently convert GBK, UTF-16, or BOM-sensitive files; if the encoding is unclear, inspect or ask.
+- For cross-version BOM-less UTF-8 writes, use an API that states the encoding directly, such as `[System.IO.File]::WriteAllText($path, $text, [System.Text.UTF8Encoding]::new($false))`.
 - Do not set `Console.InputEncoding` or `Console.OutputEncoding` by default. Set them only for a confirmed terminal or native-program encoding mismatch; `$OutputEncoding` instead controls PowerShell text sent to native programs.
 - Do not apply text encoding options to binary files. Use byte APIs for binary data.
+- Do not use terminal-rendered non-ASCII text to reconstruct content. Prefer structured tools and patches for source edits.
+
+Run these checks from this skill directory with PowerShell 7.6.1 or newer:
+
+```powershell
+pwsh -NoProfile -File .\scripts\assert-no-nonascii-ps1.ps1
+pwsh -NoProfile -File .\scripts\diagnose-powershell-encoding.ps1
+```
+
+The ASCII-only check enforces this repository's policy. In another repository, use it only when that repository adopts the same rule; use its own equivalent validation when one exists.
 
 ## Start-Process
 
@@ -199,4 +224,4 @@ Choose the simplest safe option:
 6. `cmd.exe /c` only when cmd semantics are required.
 7. `Invoke-Expression` only as a tightly controlled last resort.
 
-For uncommon cases and complete examples, read `reference.md`.
+For uncommon invocation cases and complete examples, read `reference.md`. For encoding diagnosis and trustworthy verification methods, read `references/windows-encoding.md`.
