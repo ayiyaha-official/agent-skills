@@ -2,7 +2,7 @@
 
 請在這個 Windows 專案中遵守以下規則，避免中文內容在 PowerShell 或終端機中變成亂碼：
 
-執行 PowerShell 腳本時，請使用 PowerShell 7.6.1 以上版本的 `pwsh`。如果安裝 7.6，優先選用 MSI 版；Windows 上可使用：
+執行本守則所述的編碼診斷腳本與中文/CJK 檔案工作流時，請使用 PowerShell 7.6.1 以上版本的 `pwsh`。其他 PowerShell 7 呼叫情境可依專案支援的版本執行。如果安裝 7.6，優先選用 MSI 版；Windows 上可使用：
 
 ```powershell
 winget install --id Microsoft.PowerShell --source winget --installer-type wix
@@ -22,4 +22,4 @@ winget install --id Microsoft.PowerShell --source winget --installer-type wix
 
 簡短版：
 
-> 使用符合目前版本的 PowerShell 安裝方式；終端機出現亂碼時，先檢查檔案內容。未確認前不要複製亂碼或發布受影響的文字。
+> 編碼診斷與中文/CJK 工作流建議使用 PowerShell 7.6.1+；一般 PowerShell 7 情境依專案支援版本執行。終端機出現亂碼時，先檢查檔案內容。未確認前不要複製亂碼或發布受影響的文字。

@@ -171,9 +171,11 @@ This skill also includes `scripts/assert-no-nonascii-ps1.ps1`. Run it from this 
 pwsh -NoProfile -File .\scripts\assert-no-nonascii-ps1.ps1
 ```
 
-Run it with explicit roots or extensions:
+Run it with explicit roots or extensions from an active PowerShell session:
 
 ```powershell
-pwsh -NoProfile -File .\scripts\assert-no-nonascii-ps1.ps1 -Path .\tools, .\scripts
-pwsh -NoProfile -File .\scripts\assert-no-nonascii-ps1.ps1 -Extension .ps1, .psm1, .psd1
+& .\scripts\assert-no-nonascii-ps1.ps1 -Path .\tools, .\scripts
+& .\scripts\assert-no-nonascii-ps1.ps1 -Extension .ps1, .psm1, .psd1
 ```
+
+When launching with `pwsh -File`, pass one comma-free value for each array parameter and invoke the script again for additional values. Comma-separated values are not parsed as PowerShell parameter arrays across the executable boundary.
